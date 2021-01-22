@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import Grid from '../template/Grid'
 import IconButton from '../template/IconButton'
+import changeDescription from '../main/agendaActions'
 
 const AgendaForm = (props) => {
 
@@ -18,8 +22,8 @@ const AgendaForm = (props) => {
                 <input id='description'
                     className='form-control'
                     placeholder='Adicione uma tarefa'
-                    value={props.descriptionn}
-                    onChange={props.handleChangee}
+                    defaultValue={props.descriptionn}       /* Troquei value por defaultValue*/
+                    onChange={props.changeDescription}      /* Recebe agora a chamada do action creator */
                     onKeyUp={keyHandler}
                 />
             </Grid>
@@ -36,4 +40,15 @@ const AgendaForm = (props) => {
     );
 }
 
-export default AgendaForm;
+const mapStateToProps = (state) => ({
+    descriptionn: state.agenda.description
+})
+
+const mapDispatchToProps = (dispatch) => {                  // mapDispatchToProps mapeia changeDescription
+
+    bindActionCreators({ changeDescription }, dispatch)     // bindActionCreators faz o dispatch ocorrer sempre que ocorre um evento em changeDescription 
+    // dispara a acão e aciona o action creatorchangeDescription
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AgendaForm);

@@ -1,22 +1,10 @@
 import { combineReducers } from 'redux'
+import AgendaReducer from './agendaReducer'
 
 const rootReducer = combineReducers({
-    agenda: () => ({
-        description: 'Ler livro',
-        list: [{
-            _id:1,
-            description: 'Pagar fatura',
-            done: true
-        }, {
-            _id:2,
-            description: 'Estudar',
-            done: false
-        }, {
-            _id:3,
-            description: 'Dormir',
-            done: false
-        }]
-    })
-})
+    
+    agenda: AgendaReducer
+
+})  
 
 export default rootReducer

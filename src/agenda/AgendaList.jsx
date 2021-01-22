@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import IconButton from '../template/IconButton'
 
 const AgendaList = (props) => {
+
 
     const renderRows = () => {
 
@@ -24,6 +26,7 @@ const AgendaList = (props) => {
         ))
     }
 
+
     return (
 
         <table className='table'>
@@ -41,4 +44,8 @@ const AgendaList = (props) => {
     );
 }
 
-export default AgendaList;
+const mapStateToProps = (state) => ({
+    list: state.agenda.list
+})
+
+export default connect(mapStateToProps) (AgendaList);
