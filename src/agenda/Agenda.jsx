@@ -53,7 +53,7 @@ class Agenda extends Component {
             .then(resp => {
                 this.setState({
                     ...this.state,
-                    description,
+                    description,            // já recebe o valor vazio do parâmetro por isso recebe nada diferente de list 
                     list: resp.data
                 })
             })

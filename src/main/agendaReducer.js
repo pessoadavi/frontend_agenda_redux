@@ -1,18 +1,6 @@
 const INITIAL_STATE = {
-    description: 'Ler livro',
-    list: [{
-        _id: 1,
-        description: 'Pagar fatura',
-        done: true
-    }, {
-        _id: 2,
-        description: 'Estudar',
-        done: false
-    }, {
-        _id: 3,
-        description: 'Dormir',
-        done: false
-    }]
+    description: '',
+    list: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,6 +11,18 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 description: action.payload
+            }
+
+        case 'AGENDA_SEARCHED':
+            return {
+                ...state,
+                list: action.payload.data
+            }
+
+        case 'AGENDA_ADDED':
+            return {
+                ...state,
+                description: ''
             }
 
         default:
