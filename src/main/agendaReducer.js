@@ -25,8 +25,8 @@ export default (state = INITIAL_STATE, action) => {
                 description: action.payload
             }
 
-            default:
-                return state
+        default:
+            return state
     }
 
 }
