@@ -10,14 +10,22 @@ export const changeDescription = (inputField) => ({
     payload: inputField.target.value
 })
 
+
 export const search = () => {
 
-    const request = axios.get(`${url}?sort=-createdAt`)
+    return (dispatch, getState) => {
 
-    return {
-        type: 'AGENDA_SEARCHED',
-        payload: request
+        const description = getState().agenda.description
+        const search = description ? `&description__regex=/${description}/` : ''
+        const request = axios.get(`${url}?sort=-createAt${search}`)
+            .then(resp => {
+                dispatch({
+                    type: 'AGENDA_SEARCHED',
+                    payload: resp.data
+                })
+            })
     }
+
 }
 
 /* Neste creat action estão sendo usados dois midleewares: thunk e multi.
@@ -31,11 +39,10 @@ export const add = (description) => {
 
     return dispatch => {
         axios.post(url, { description })
-            .then(resp => {
-                dispatch({
-                    type: 'AGENDA_ADDED',
-                    payload: resp.data
-                })
+            .then(() => {
+                dispatch(
+                    clearForm()
+                )
             })
             .then(() => {
                 dispatch(
@@ -83,13 +90,17 @@ export const remove = (agenda) => {
             })
     }
 
+
 }
 
 export const clearForm = () => {
 
-    return {
-        type: 'AGENDA_CLEAR'
-    }
+    return [
+        {
+            type: 'AGENDA_CLEAR'
+        },
+        search()
+    ]
 
 }
 

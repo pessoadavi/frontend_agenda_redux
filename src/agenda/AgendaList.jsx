@@ -11,6 +11,7 @@ const AgendaList = (props) => {
     const renderRows = () => {
 
         const list = props.list || []
+        //const descriptionn = props.description
 
         return list.map(agenda => (
             <tr key={agenda._id}>
@@ -19,9 +20,9 @@ const AgendaList = (props) => {
                 </td>
                 <td>
                     <IconButton style="success" icon="check" hide={agenda.done}
-                        onClickk={() => { props.markedAsPending(agenda) }} />
+                        onClickk={() => { props.markedAsPending(agenda /*, descriptionn*/) }} />
                     <IconButton style="warning" icon="undo" hide={!agenda.done}
-                        onClickk={() => { props.markedAsDone(agenda) }} />
+                        onClickk={() => { props.markedAsDone(agenda /*'', descriptionn*/) }} />
                     <IconButton style='danger' icon='trash-o' hide={!agenda.done}
                         onClickk={() => { props.remove(agenda) }} />
                 </td>
@@ -48,7 +49,8 @@ const AgendaList = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    list: state.agenda.list
+    list: state.agenda.list,
+  //description: state.agenda.description
 })
 
 const mapDispatchToProps = (dispatch) => 

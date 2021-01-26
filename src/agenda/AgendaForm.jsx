@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import Grid from '../template/Grid'
 import IconButton from '../template/IconButton'
-import { changeDescription, search, add } from '../main/agendaActions'
+import { changeDescription, search, add, clearForm } from '../main/agendaActions'
 
 
 class AgendaForm extends Component {
@@ -20,19 +20,19 @@ class AgendaForm extends Component {
 
     keyHandler(keyEvent) {
 
-        const {add, search, descriptionn } = this.props
+        const {add, search, descriptionn, clearForm } = this.props
 
         if (keyEvent.key === 'Enter') {
-            keyEvent.shiftKey ? search() : add(descriptionn)
+            keyEvent.shiftKey ? search(/*descriptionn*/) : add(descriptionn)
         } else if (keyEvent.key === 'Escape') {
-            props.handleClearr()
+            clearForm()
         }
 
     }
 
     render() {
 
-        const {add, search, descriptionn } = this.props
+        const {add, search, descriptionn, clearForm } = this.props
 
         return (
 
@@ -51,9 +51,9 @@ class AgendaForm extends Component {
                     <IconButton style='primary' icon='plus'
                         onClickk={()=>{add(descriptionn)}} />
                     <IconButton style='info' icon='search'
-                        onClickk={()=>{search()}} />
+                        onClickk={()=>{search(/*descriptionn*/)}} />
                     <IconButton style='default' icon='close'
-                        onClickk={this.props.handleClearr} />
+                        onClickk={()=>{clearForm()}} />
                 </Grid>
             </div>
         );
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) =>                            // mapDispatchToProps mapeia changeDescription
-    bindActionCreators({ changeDescription, search, add }, dispatch)     // bindActionCreators faz o dispatch ocorrer sempre que ocorre um evento em changeDescription 
+    bindActionCreators({ changeDescription, search, add, clearForm }, dispatch)     // bindActionCreators faz o dispatch ocorrer sempre que ocorre um evento em changeDescription 
 // dispara a acão e aciona o action creatorchangeDescription
 
 

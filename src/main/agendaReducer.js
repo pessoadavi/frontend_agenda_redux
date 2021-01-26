@@ -16,17 +16,14 @@ export default (state = INITIAL_STATE, action) => {
         case 'AGENDA_SEARCHED':
             return {
                 ...state,
-                list: action.payload.data
+                list: action.payload
             }
 
-        case 'AGENDA_ADDED':
         case 'AGENDA_CLEAR':
             return {
                 ...state,
                 description: ''
             }
-
-        
 
         default:
             return state
