@@ -20,10 +20,13 @@ export default (state = INITIAL_STATE, action) => {
             }
 
         case 'AGENDA_ADDED':
+        case 'AGENDA_CLEAR':
             return {
                 ...state,
                 description: ''
             }
+
+        
 
         default:
             return state

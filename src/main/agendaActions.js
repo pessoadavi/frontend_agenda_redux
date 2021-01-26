@@ -46,24 +46,50 @@ export const add = (description) => {
 
 }
 
-export const markAsDone = (agenda) => {
+export const markedAsPending = (agenda) => {
 
     return dispatch => {
-        axios.put(`${url}/${agenda._id}`, { agenda })
-        .then()
+        axios.put(`${url}/${agenda._id}`, { ...agenda, done: true })
+            .then(() => {
+                dispatch(
+                    search()
+                )
+            })
     }
 
 }
 
-export const masrkAsPending = (agenda) => {
+
+export const markedAsDone = (agenda) => {
 
     return dispatch => {
-        axios.put(`${url}/${agenda._id}`, { agenda })
-        .then()
+        axios.put(`${url}/${agenda._id}`, { ...agenda, done: false })
+            .then(() => {
+                dispatch(
+                    search()
+                )
+            })
     }
 }
 
-export const remove = () => {
+export const remove = (agenda) => {
 
+    return dispatch => {
+        axios.delete(`${url}/${agenda._id}`)
+            .then(() => {
+                dispatch(
+                    search()
+                )
+            })
+    }
 
 }
+
+export const clearForm = () => {
+
+    return {
+        type: 'AGENDA_CLEAR'
+    }
+
+}
+

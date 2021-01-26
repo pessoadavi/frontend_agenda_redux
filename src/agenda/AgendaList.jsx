@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 import IconButton from '../template/IconButton'
+
+import { markedAsDone, markedAsPending, remove } from '../main/agendaActions'
 
 const AgendaList = (props) => {
 
@@ -16,11 +19,11 @@ const AgendaList = (props) => {
                 </td>
                 <td>
                     <IconButton style="success" icon="check" hide={agenda.done}
-                        onClickk={() => { props.handleMarkedAsPendingg(agenda) }} />
+                        onClickk={() => { props.markedAsPending(agenda) }} />
                     <IconButton style="warning" icon="undo" hide={!agenda.done}
-                        onClickk={() => { props.handleMarkedAsDonee(agenda) }} />
+                        onClickk={() => { props.markedAsDone(agenda) }} />
                     <IconButton style='danger' icon='trash-o' hide={!agenda.done}
-                        onClickk={() => { props.handleRemovee(agenda) }} />
+                        onClickk={() => { props.remove(agenda) }} />
                 </td>
             </tr>
         ))
@@ -48,4 +51,7 @@ const mapStateToProps = (state) => ({
     list: state.agenda.list
 })
 
-export default connect(mapStateToProps) (AgendaList);
+const mapDispatchToProps = (dispatch) => 
+    bindActionCreators({markedAsDone, markedAsPending, remove }, dispatch) 
+
+export default connect(mapStateToProps, mapDispatchToProps) (AgendaList);
